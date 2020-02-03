@@ -1,10 +1,8 @@
 /*Katherine Sarkisov Period 6 1/31/20
  * Jewelry store client file - test out methods
  */
-import Jewelry.java;
-import Ring.java;
-import allJewelry.java;
-public class Client {
+
+public class Main {
 
 	public static void main(String[] args) {
 		

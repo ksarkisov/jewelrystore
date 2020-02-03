@@ -2,8 +2,6 @@
  * Jewelry Store Class - maintain all jewelry in store (jewelry can be ring or necklace)
  * Adding a ring or jewelry object.....finish
  */
-import java.util.*;
-import Jewelry.java;
 
 public class JewelryStore {
 
@@ -15,9 +13,9 @@ public class JewelryStore {
 		allJewelry[0] = j[0];
 
 		for(int i = 1; i < j.length; i ++) {
-
+      System.out.println("toadd :"  + i);
 			this.add(j[i]);
-			this.display();
+      System.out.println("added :"  + i);
 		}
 	}
 	
@@ -37,26 +35,39 @@ public class JewelryStore {
 	//add jewelry object to array, if exists then update the quantity
 	public void add(Jewelry toAdd) {	
 
-		if(!this.isDuplicate(toAdd)){//check if toAdd was a duplicate
+		
+    if(!this.isDuplicate(toAdd)){//check if toAdd was a duplicate
 
-			Jewelry[] temp = new Jewelry[allJewelry.length + 1];
-			
-			for(int loc = 0; loc < allJewelry.length; loc ++){
+      Jewelry[] temp = new Jewelry[allJewelry.length];
 
-				if(toAdd.compare(allJewelry[loc]) > 0){
-					temp[loc] = allJewelry[loc];
-				}
-				else{
-					temp[loc] = toAdd;
-					temp[loc + 1] = allJewelry[loc];
-				}
-			}
-			allJewelry = temp;
-		}
-	}
+      for(int i = 0; i < allJewelry.length; i ++){
+        
+        temp[i] = allJewelry[i];
+      }
 
+      allJewelry = new Jewelry[temp.length + 1];
+      int location = allJewelry.length;
+
+      for(int loc = 0; loc < temp.length; loc ++){
+
+        if(temp[loc].compare(toAdd) > 0){
+          allJewelry[loc] = toAdd;
+          location = loc;
+          loc = allJewelry.length;
+        }
+        else{
+          allJewelry[loc] = temp[loc];
+        }
+      }
+
+      for(int loc = location; loc < allJewelry.length; loc ++){
+        allJewelry[loc] = temp[loc - 1];
+      }
+	  }
+  }
 	private boolean isDuplicate(Jewelry toAdd){
-
+    System.out.println("isdup" + allJewelry.length);
+    System.out.println(toAdd);
 		for(int i = 0; i < allJewelry.length; i ++){
 			System.out.println(i);
 			System.out.println(allJewelry.length);//test
@@ -151,9 +162,9 @@ public class JewelryStore {
 			if(allJewelry[midIndex].getName().equals(name)){
 				return true;
 			}
-			else if(allJewelry[midIndex].getName().compareTo(name)  ){
-				endLoc = midIndex - 1;
-			}
+			//else if(allJewelry[midIndex].getName().compareTo(name)  ){
+				//endLoc = midIndex - 1;
+			//}
 			else{
 				startLoc = midIndex + 1;
 			}
